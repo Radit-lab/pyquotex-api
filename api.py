@@ -183,3 +183,10 @@ async def get_candles_range(
     except Exception as e:
         logger.exception("Error fetching range candles")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 8080))
+    import uvicorn
+    uvicorn.run("api:app", host="0.0.0.0", port=port)
