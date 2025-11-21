@@ -94,7 +94,7 @@ class QuotexService:
 
     async def ensure_connected(self):
         if not self.client:
-            raise RuntimeError("Quotex client not initialized")
+            await self.init()
         
         if not await self.client.check_connect():
             ok, reason = await self.client.connect()
@@ -135,7 +135,7 @@ service = QuotexService()
 
 @app.on_event("startup")
 async def on_startup():
-    await service.init()
+    logger.info("API server started. Quotex connection will be established on first request.")
 
 
 @app.get("/health")
